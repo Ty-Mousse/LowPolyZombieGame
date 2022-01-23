@@ -6,12 +6,13 @@ import engine.WindowManager;
 public class Launcher {
 
     private static WindowManager window;
-    private static EngineManager engine;
+    private static TestGame game;
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         window = new WindowManager("Loading...", 1080, 720, false);
-        engine = new EngineManager();
+        game = new TestGame();
 
+        EngineManager engine = new EngineManager();
         try {
             engine.start();
         } catch (Exception e) {
@@ -21,5 +22,9 @@ public class Launcher {
 
     public static WindowManager getWindow() {
         return window;
+    }
+
+    public static TestGame getGame() {
+        return game;
     }
 }
