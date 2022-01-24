@@ -10,8 +10,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class WindowManager {
 
-    public static final float FOV = (float) Math.toRadians(60);
-    public static final float Z_NEAR = 0.01f;
+    public static final float FOV = 70;
+    public static final float Z_NEAR = 0.1f;
     public static final float Z_FAR = 1000f;
 
     private String title;
@@ -28,7 +28,7 @@ public class WindowManager {
         this.width = width;
         this.height = height;
         this.vSync = vSync;
-        projectionMatrix = new Matrix4f();
+        this.projectionMatrix = createProjectionMatrix();
     }
 
     public void init() {
@@ -71,6 +71,9 @@ public class WindowManager {
                 glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
         });
 
+        // Hide the mouse cursor
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
         if (maximised) {
             glfwMaximizeWindow(window);
         } else {
@@ -91,8 +94,8 @@ public class WindowManager {
         glClearColor(0.2f, 0.97f, 1.0f, 0.0f);
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_STENCIL_TEST);
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
+        /*glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);*/
     }
 
     public void update() {
@@ -162,4 +165,22 @@ public class WindowManager {
         float aspectRatio = (float) width/height;
         return matrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
     }
+
+    private Matrix4f createProjectionMatrix() {
+        float aspectRatio = (float) width / (float) height;
+        float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))) * aspectRatio);
+        float x_scale = y_scale / aspectRatio;
+        float frustum_length = Z_FAR - Z_NEAR;
+
+        Matrix4f matrix = new Matrix4f();
+        matrix.m00(x_scale);
+        matrix.m11(y_scale);
+        matrix.m22(-((Z_FAR + Z_NEAR) / frustum_length));
+        matrix.m23(-1);
+        matrix.m32(-((2 * Z_NEAR * Z_FAR) / frustum_length));
+        matrix.m33(0);
+        return matrix;
+    }
+
+
 }

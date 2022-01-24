@@ -6,7 +6,7 @@ public interface ILogic {
 
     void input();
 
-    void update();
+    void update(MouseManager mouseManager);
 
     void render();
 
