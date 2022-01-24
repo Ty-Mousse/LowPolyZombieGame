@@ -7,4 +7,8 @@ public class Texture {
     public Texture(int id) {
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
 }

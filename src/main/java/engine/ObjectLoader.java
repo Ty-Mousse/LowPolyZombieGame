@@ -51,7 +51,10 @@ public class ObjectLoader {
         textures.add(id);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
         GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
-        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, );
+        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
+        GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+        STBImage.stbi_image_free(buffer);
+        return id;
     }
 
     private int createVAO() {
@@ -89,6 +92,9 @@ public class ObjectLoader {
         }
         for (int vbo : vbos) {
             GL30.glDeleteBuffers(vbo);
+        }
+        for (int texture : textures) {
+            GL11.glDeleteTextures(texture);
         }
     }
 
