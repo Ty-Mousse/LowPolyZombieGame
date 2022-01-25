@@ -4,8 +4,6 @@ import main.Launcher;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
-import static engine.utils.Consts.TITLE;
-
 public class EngineManager {
 
     public static final long NANOSECOND = 1000000000L;
@@ -68,7 +66,7 @@ public class EngineManager {
 
                 if (frameCounter >= NANOSECOND) {
                     setFps(frames);
-                    window.setTitle(TITLE + " @"+ fps + "fps");
+                    window.setTitle("Game - @"+ fps + "fps");
                     frames = 0;
                     frameCounter = 0;
                 }

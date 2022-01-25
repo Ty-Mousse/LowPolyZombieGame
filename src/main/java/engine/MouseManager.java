@@ -7,6 +7,8 @@ import org.lwjgl.glfw.GLFW;
 
 public class MouseManager {
 
+    public final float MOUSE_SENSITIVITY = 0.2f;
+
     private final Vector2d previousPos, currentPos;
     private final Vector2f displVec;
 
@@ -37,16 +39,16 @@ public class MouseManager {
     public void input() {
         displVec.x = 0;
         displVec.y = 0;
-        if (previousPos.x > 0 && previousPos.y > 0 && inWindow) {
+        if (previousPos.x > 0 && previousPos.y > 0) {
             double x = currentPos.x - previousPos.x;
             double y = currentPos.y - previousPos.y;
             boolean rotateX = x != 0;
             boolean rotateY = y != 0;
             if (rotateX) {
-                displVec.y = (float) Math.atan(x / Launcher.getWindow().Z_FAR) * 1000;
+                displVec.y = (float) x;
             }
             if (rotateY) {
-                displVec.x = (float) Math.atan(y / Launcher.getWindow().Z_FAR) * 1000;
+                displVec.x = (float) y;
             }
         }
         previousPos.x = currentPos.x;

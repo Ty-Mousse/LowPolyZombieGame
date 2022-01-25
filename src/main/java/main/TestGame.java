@@ -4,7 +4,6 @@ import engine.*;
 import engine.entity.Entity;
 import engine.entity.Model;
 import engine.entity.Texture;
-import engine.utils.Consts;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
@@ -22,7 +21,6 @@ public class TestGame implements ILogic {
     private Camera camera;
 
     private Vector3f cameraInc;
-    private float dThetaX, dThetaY;
 
     public TestGame() {
         renderer = new RenderManager();
@@ -121,9 +119,12 @@ public class TestGame implements ILogic {
     public void update(MouseManager mouseManager) {
         // Mise à jour de la caméra
         Vector2f rotVec = mouseManager.getDisplVec();
-        camera.moveRotation(rotVec.x , 0, rotVec.y);
-        camera.movePosition(cameraInc.x * CAMERA_MOVE_SPEED, cameraInc.y * CAMERA_MOVE_SPEED, cameraInc.z * CAMERA_MOVE_SPEED);
-        entity.incrementRot(0, 0f, -0.1f);
+        camera.moveRotation(rotVec.x * mouseManager.MOUSE_SENSITIVITY, 0, rotVec.y * mouseManager.MOUSE_SENSITIVITY);
+        camera.movePosition((float) (cameraInc.y * CAMERA_MOVE_SPEED * Math.sin(Math.toRadians(camera.getRotation().z))
+                + cameraInc.x * CAMERA_MOVE_SPEED * Math.cos(Math.toRadians(camera.getRotation().z))),
+                (float) (cameraInc.y * CAMERA_MOVE_SPEED * Math.cos(Math.toRadians(camera.getRotation().z))
+                - cameraInc.x * CAMERA_MOVE_SPEED * Math.sin(Math.toRadians(camera.getRotation().z))),
+                cameraInc.z * CAMERA_MOVE_SPEED);
     }
 
     @Override

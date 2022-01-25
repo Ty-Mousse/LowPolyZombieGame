@@ -1,7 +1,6 @@
 package engine;
 
 import engine.entity.Entity;
-import engine.entity.Model;
 import engine.utils.Transformation;
 import engine.utils.Utils;
 import main.Launcher;
@@ -21,8 +20,8 @@ public class RenderManager {
 
     public void init() throws Exception {
         shader = new ShaderManager();
-        shader.createVertexShader(Utils.loadResource("/shaders/vertex.vs"));
-        shader.createFragmentShader(Utils.loadResource("/shaders/fragment.fs"));
+        shader.createVertexShader(Utils.loadResource("/shaders/vertex.glsl"));
+        shader.createFragmentShader(Utils.loadResource("/shaders/fragment.glsl"));
         shader.link();
         shader.createUniform("textureSampler");
         shader.createUniform("transformationMatrix");
