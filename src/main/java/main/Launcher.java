@@ -6,11 +6,11 @@ import engine.WindowManager;
 public class Launcher {
 
     private static WindowManager window;
-    private static TestGame game;
+    private static TestGameDAE game;
 
     public static void main(String args[]) throws Exception {
         window = new WindowManager("Loading...", 1080, 720, false);
-        game = new TestGame();
+        game = new TestGameDAE();
 
         EngineManager engine = new EngineManager();
         try {
@@ -24,7 +24,7 @@ public class Launcher {
         return window;
     }
 
-    public static TestGame getGame() {
+    public static TestGameDAE getGame() {
         return game;
     }
 }

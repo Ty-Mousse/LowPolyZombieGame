@@ -29,6 +29,15 @@ public class ObjectLoader {
         unbind();
         return new Model(id, indices.length);
     }
+    public Model loadModel(float[] vertices, float[] textureCoords, float[] normals, float[] colors) {
+        int id = createVAO();
+        storeDataInAttribList(0, 3, vertices);
+        storeDataInAttribList(1, 4, colors);
+        storeDataInAttribList(2, 2, textureCoords);
+        storeDataInAttribList(3, 3, normals);
+        unbind();
+        return new Model(id, vertices.length / 3);
+    }
 
     public int loadTexture(String filename) throws Exception {
         int width, height;

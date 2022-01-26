@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Utils {
@@ -29,6 +30,14 @@ public class Utils {
              result = scanner.useDelimiter("\\A").next();
         }
         return result;
+    }
+
+    public static float[] arrayListOfFloatToFloatArray(ArrayList<Float> list) {
+        float[] arr = new float[list.size()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = list.get(i);
+        }
+        return arr;
     }
 
 }
